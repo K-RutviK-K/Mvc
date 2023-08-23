@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mvcEmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dpt">
+          <Key>
+            <PropertyRef Name="dptId" />
+          </Key>
+          <Property Name="dptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dptName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="emp">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dptId" Type="int" />
+        </EntityType>
+        <Association Name="FK__emp__dptId__38996AB5">
+          <End Role="dpt" Type="Self.dpt" Multiplicity="0..1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dpt">
+              <PropertyRef Name="dptId" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="dptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvcEmpModelStoreContainer">
+          <EntitySet Name="dpt" EntityType="Self.dpt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp" EntityType="Self.emp" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__emp__dptId__38996AB5" Association="Self.FK__emp__dptId__38996AB5">
+            <End Role="dpt" EntitySet="dpt" />
+            <End Role="emp" EntitySet="emp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mvcEmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dpt">
+          <Key>
+            <PropertyRef Name="dptId" />
+          </Key>
+          <Property Name="dptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="emps" Relationship="Self.FK__emp__dptId__38996AB5" FromRole="dpt" ToRole="emp" />
+        </EntityType>
+        <EntityType Name="emp">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dptId" Type="Int32" />
+          <NavigationProperty Name="dpt" Relationship="Self.FK__emp__dptId__38996AB5" FromRole="emp" ToRole="dpt" />
+        </EntityType>
+        <Association Name="FK__emp__dptId__38996AB5">
+          <End Role="dpt" Type="Self.dpt" Multiplicity="0..1" />
+          <End Role="emp" Type="Self.emp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dpt">
+              <PropertyRef Name="dptId" />
+            </Principal>
+            <Dependent Role="emp">
+              <PropertyRef Name="dptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvcEmpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dpts" EntityType="Self.dpt" />
+          <EntitySet Name="emps" EntityType="Self.emp" />
+          <AssociationSet Name="FK__emp__dptId__38996AB5" Association="Self.FK__emp__dptId__38996AB5">
+            <End Role="dpt" EntitySet="dpts" />
+            <End Role="emp" EntitySet="emps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mvcEmpModelStoreContainer" CdmEntityContainer="mvcEmpEntities">
+          <EntitySetMapping Name="dpts">
+            <EntityTypeMapping TypeName="mvcEmpModel.dpt">
+              <MappingFragment StoreEntitySet="dpt">
+                <ScalarProperty Name="dptId" ColumnName="dptId" />
+                <ScalarProperty Name="dptName" ColumnName="dptName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emps">
+            <EntityTypeMapping TypeName="mvcEmpModel.emp">
+              <MappingFragment StoreEntitySet="emp">
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="empName" ColumnName="empName" />
+                <ScalarProperty Name="dptId" ColumnName="dptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

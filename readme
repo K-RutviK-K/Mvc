@@ -1,0 +1,5 @@
+"Source=NITRO-5-FROM-RK\\SQLEXPRESS;Initial Catalog=jwtdbtwo;Integrated Security=true;Encrypt=false" 	
+
+
+
+Scaffold-DbContext "Server=NITRO-5-FROM-RK\SQLEXPRESS;Database=jwtdbtwo;Trusted_Connection=True;Encrypt=False"  Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
